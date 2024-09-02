@@ -2,8 +2,8 @@ import random
 from error_injector import inject_error_random
 from dataframe import DataFrame
 
-FRAME_LOSS_PROBABILITY=0.3
-ERROR_PROBABILITY=0.3
+FRAME_LOSS_PROBABILITY=0.0
+ERROR_PROBABILITY=0.0
 
 class Channel:
     def __init__(self, frame_loss_prob=FRAME_LOSS_PROBABILITY, error_prob=ERROR_PROBABILITY):

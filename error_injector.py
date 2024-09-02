@@ -1,13 +1,11 @@
 import random
 
-
 def inject_single_bit_error(codeword, index):
     if index < 0 or index >= 32:
         raise ValueError("Index out of range")
     infected_codeword = codeword[:index] + \
         ('0' if codeword[index] == '1' else '1') + codeword[index + 1:]
     return infected_codeword
-
 
 def inject_two_isolated_single_bit_errors(codeword, index1, index2):
     if index1 < 0 or index1 >= 32 or index2 < 0 or index2 >= 32:
@@ -19,7 +17,6 @@ def inject_two_isolated_single_bit_errors(codeword, index1, index2):
     infected_codeword[index2] = '0' if codeword[index2] == '1' else '1'
     return ''.join(infected_codeword)
 
-
 def inject_odd_number_of_errors(codeword, indices):
     if any(index < 0 or index >= 32 for index in indices):
         raise ValueError("Indices out of range")
@@ -28,15 +25,13 @@ def inject_odd_number_of_errors(codeword, indices):
         infected_codeword[index] = '0' if codeword[index] == '1' else '1'
     return ''.join(infected_codeword)
 
-
 def inject_burst_error(codeword, start_index, burst_length):
-    if start_index < 0 or start_index + burst_length > 32:
+    if start_index < 0 or start_index + burst_length > len(codeword):
         raise ValueError("Burst error out of range")
     infected_codeword = list(codeword)
     for i in range(start_index, start_index + burst_length):
         infected_codeword[i] = '0' if codeword[i] == '1' else '1'
     return ''.join(infected_codeword)
-
 
 def inject_error_random(codeword, error_type, burst_length=None):
     if error_type == "SINGLE":
@@ -57,11 +52,11 @@ def inject_error_random(codeword, error_type, burst_length=None):
     elif error_type == "BURST":
         if burst_length is None:
             raise ValueError("Burst length must be provided for burst errors.")
-        start_index = random.randint(0, 32 - burst_length)
+        max_start_index = max(0, len(codeword) - burst_length)
+        start_index = random.randint(0, max_start_index)
         return inject_burst_error(codeword, start_index, burst_length)
     else:
         raise ValueError("Invalid error type specified.")
-
 
 def inject_error_manual(codeword, error_type, indices=None, start_index=None, burst_length=None):
     if error_type == "SINGLE":

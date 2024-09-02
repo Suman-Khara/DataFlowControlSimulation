@@ -1,7 +1,6 @@
 import struct
 from error_checker import CRC, Checksum
 
-
 class DataFrame:
     def __init__(self, source_address, destination_address, length, frame_seq_no, payload, error_checking_scheme):
         self.source_address = source_address

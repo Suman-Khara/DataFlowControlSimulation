@@ -85,7 +85,6 @@ class Checksum:
         return all(bit == '1' for bit in res_bin)
 
 
-# Example usage (for testing purposes)
 if __name__ == "__main__":
     dataword = "11010110101101011010101101101010111111111"
     crc = CRC()

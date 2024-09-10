@@ -1,20 +1,17 @@
 0 sent
-ACK 0 received.
 1 sent
-ACK 1 received.
 2 sent
-ACK 2 received.
 3 sent
-ACK 3 received.
 4 sent
-ACK 4 received.
+4 re-sent
+4 re-sent
 5 sent
-ACK 5 received.
+5 re-sent
+5 re-sent
 6 sent
-ACK 6 received.
+6 re-sent
+6 re-sent
+6 re-sent
 7 sent
-ACK 7 received.
 8 sent
-ACK 8 received.
 9 sent
-ACK 9 received.

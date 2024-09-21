@@ -35,20 +35,3 @@ class DataFrame:
         dataframe = DataFrame(source_address, destination_address, length, frame_seq_no, payload, None)
         dataframe.fcs = fcs
         return dataframe
-
-if __name__ == "__main__":
-    src = b'\x01\x02\x03\x04\x05\x06'
-    dst = b'\xaa\xbb\xcc\xdd\xee\xff'
-    length = 64
-    seq_no = 1
-    payload = "11010110101101011010101101101010111111111"
-    scheme = "CRC"
-
-    df = DataFrame(src, dst, length, seq_no, payload, scheme)
-    serialized_df = df.to_bytes()
-    received_df = DataFrame.from_bytes(serialized_df)
-
-    print(f"Original Payload: {df.payload}")
-    print(f"Received Payload: {received_df.payload}")
-    print(f"Original FCS: {df.fcs}")
-    print(f"Received FCS: {received_df.fcs}")

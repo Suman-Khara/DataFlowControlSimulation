@@ -2,11 +2,12 @@ import sys
 import socket
 from stop_and_wait import Sender as StopAndWaitSender
 from go_back_n import Sender as GoBackNSender
+from selective_repeat import Sender as SelectiveRepeatSender
 
 def main():
     if len(sys.argv) != 5:
         print("Usage: python sender.py <protocol> <file_path> <packet_size> <technique>")
-        print("Protocol: 'StopAndWait' or '1', 'GoBackN' or '2'")
+        print("Protocol: 'StopAndWait' or '1', 'GoBackN' or '2', or 'SelectiveRepeat' or '3'")
         print("Technique: 'CRC' or '1', 'Checksum' or '2'")
         sys.exit(1)
 
@@ -18,8 +19,10 @@ def main():
     protocol_map = {
         '1': 'StopAndWait',
         '2': 'GoBackN',
+        '3': 'SelectiveRepeat',
         'StopAndWait': 'StopAndWait',
-        'GoBackN': 'GoBackN'
+        'GoBackN': 'GoBackN',
+        'SelectiveRepeat': 'SelectiveRepeat'
     }
 
     technique_map = {
@@ -31,7 +34,7 @@ def main():
 
     protocol = protocol_map.get(protocol_input)
     if not protocol:
-        print("Error: Invalid protocol. Choose 'StopAndWait', 'GoBackN', '1', or '2'.")
+        print("Error: Invalid protocol. Choose 'StopAndWait', 'GoBackN', 'SelectiveRepeat', '1', '2', or '3'.")
         sys.exit(1)
 
     technique = technique_map.get(technique_input)
@@ -44,7 +47,8 @@ def main():
 
     protocols = {
         'StopAndWait': StopAndWaitSender,
-        'GoBackN': GoBackNSender
+        'GoBackN': GoBackNSender,
+        'SelectiveRepeat': SelectiveRepeatSender
     }
 
     SenderClass = protocols[protocol]

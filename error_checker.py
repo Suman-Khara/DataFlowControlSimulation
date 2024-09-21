@@ -83,17 +83,3 @@ class Checksum:
             res_bin = res_bin[-self.size:]
             res_bin = bin(int(res_bin, 2) + int(carry, 2))[2:].zfill(self.size)
         return all(bit == '1' for bit in res_bin)
-
-
-if __name__ == "__main__":
-    dataword = "11010110101101011010101101101010111111111"
-    crc = CRC()
-    fcs_crc = crc.generate_fcs(dataword)
-    print(f"CRC FCS: {fcs_crc}")
-    print(f"CRC Validation: {crc.validate(dataword, fcs_crc)}")
-
-    checksum = Checksum()
-    fcs_checksum = checksum.generate_fcs(dataword)
-    print(f"Checksum FCS: {fcs_checksum}")
-    print(f"Checksum Validation: {checksum.validate(dataword, fcs_checksum)}")
-    print(f'{len(fcs_checksum)} {len(fcs_crc)}')

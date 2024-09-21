@@ -42,6 +42,7 @@ class Sender:
     def send_data(self):
         with open(self.log_file, 'w'):
             pass
+        start_time=time.time()
         frame_seq_no = 0
 
         # Start the listener thread for ACKs and NACKs
@@ -69,6 +70,9 @@ class Sender:
 
             # If buffer is empty and no more frames to send, transmission is done
             if len(self.buffer) == 0 and dataframe is None:
+                end_time = time.time()
+                total_time = end_time - start_time
+                print(f"Total transmission time: {total_time:.2f} seconds")
                 print("Transmission completed.")
                 break
 
@@ -171,9 +175,8 @@ class Receiver:
 
                     # Address verification
                     if data_frame.destination_address != self.address:
-                        print("Destination address mismatch. Closing connection.")
-                        self.connection.close()
-                        break
+                        print(f"Frame {data_frame.frame_seq_no} Destination address mismatch.")
+                        continue
 
                     frame_seq_no = data_frame.frame_seq_no
                     payload = data_frame.payload

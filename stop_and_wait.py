@@ -6,8 +6,10 @@ from dataframe import DataFrame
 from ackframe import ACK
 from error_checker import CRC, Checksum
 
+TIMEOUT=4
+
 class Sender:
-    def __init__(self, connection, input_file, source, destination, checker, bytes, log_file="log.txt"):
+    def __init__(self, connection, input_file, source, destination, checker, bytes, log_file="log.txt", timeout=TIMEOUT):
         self.connection = connection
         self.input_file = input_file
         self.source_address = source
@@ -17,6 +19,7 @@ class Sender:
         self.index = 0
         self.payload_size = bytes
         self.log_file = log_file
+        self.timeout=timeout
         self.lock = threading.Lock()
         self.ack_received = False
         self.stop_sending = False
@@ -38,7 +41,7 @@ class Sender:
     def send_data(self):
         with open(self.log_file, 'w'):
             pass
-
+        start_time=time.time()
         while not self.stop_sending:
             dataframe = self.makeDataFrame()
 
@@ -74,7 +77,7 @@ class Sender:
                     ack_thread = threading.Thread(target=self.wait_for_ack)
                     ack_thread.start()
 
-                    ack_thread.join(timeout=2)
+                    ack_thread.join(timeout=self.timeout)
 
                     if self.ack_received:
                         print(f"ACK received for Frame {self.index}. Proceeding to next frame.")
@@ -83,7 +86,9 @@ class Sender:
                         break
                     else:
                         print(f"Timeout waiting for ACK for Frame {self.index}. Re-sending...")
-
+        end_time=time.time()
+        total_time = end_time - start_time
+        print(f"Total transmission time: {total_time:.2f} seconds")
         print("Closing connection after all frames are sent.")
         self.connection.close()
 
@@ -131,7 +136,7 @@ class Receiver:
                     data_frame = DataFrame.from_bytes(data)
 
                     if data_frame.destination_address != self.address:
-                        print("Destination address mismatch. Closing connection.")
+                        print(f"{self.index}. Destination address mismatch.")
                         self.connection.close()
                         break
 

@@ -17,7 +17,7 @@ class Channel:
             raise TypeError("Expected a DataFrame object")
 
         if random.random() < self.frame_loss_prob:
-            print("Frame lost during transmission.")
+            print(f"Frame {dataframe.frame_seq_no} lost during transmission.")
             return None
 
         data_with_errors = self.introduce_errors(dataframe)

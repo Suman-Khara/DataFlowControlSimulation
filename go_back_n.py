@@ -8,6 +8,7 @@ from dataframe import DataFrame
 from ackframe import ACK
 from error_checker import CRC, Checksum
 import traceback
+import time
 
 class Sender:
     def __init__(self, connection, input_file, source, destination, checker, bytes, log_file="log.txt", window_size=WINDOW_SIZE, timeout=TIMEOUT):
@@ -43,7 +44,7 @@ class Sender:
     def send_data(self):
         with open(self.log_file, 'w'):
             pass
-
+        start_time=time.time()
         while True:
             eof_reached = False  
             
@@ -64,9 +65,11 @@ class Sender:
            
             if eof_reached and self.base == self.next_seq_num:
                 print("All frames sent and acknowledged. Transmission complete.")
+                end_time = time.time()
+                total_time = end_time - start_time
+                print(f"Total transmission time: {total_time:.2f} seconds")
                 break
-
-           
+                   
             self.receive_ack()
 
     def send_frame(self, dataframe):
@@ -142,9 +145,8 @@ class Receiver:
 
                     data_frame = DataFrame.from_bytes(data)
                     if data_frame.destination_address != self.address:
-                        print("Destination address mismatch. Closing connection.")
-                        self.connection.close()
-                        break
+                        print(f"Frame {data_frame.frame_seq_no} Destination address mismatch.")
+                        continue
 
                     payload = data_frame.payload
                     received_fcs = data_frame.fcs

@@ -10,7 +10,6 @@ This repository implements three types of Automatic Repeat Request (ARQ) protoco
 - [Features](#features)
 - [Requirements](#requirements)
 - [Usage](#usage)
-- [Running the Simulation](#running-the-simulation)
 - [Protocol Overview](#protocol-overview)
 - [Limitations](#limitations)
 

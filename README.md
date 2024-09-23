@@ -1,3 +1,4 @@
+
 ---
 
 # ARQ Protocols Simulation
@@ -34,8 +35,8 @@ To simulate the communication process, you will need to first run the **receiver
 
 ### 1. Clone the Repository:
 ```bash
-git clone <repository-url>
-cd <repository-folder>
+git clone https://github.com/Suman-Khara/DataFlowControlSimulation.git
+cd DataFlowControlSimulation
 ```
 
 ### 2. Running the Simulation:

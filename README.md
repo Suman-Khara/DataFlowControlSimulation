@@ -1,7 +1,7 @@
 
 ---
 
-# ARQ Protocols Simulation
+# Data Flow Control Simulation
 
 This repository implements three types of Automatic Repeat Request (ARQ) protocols: **Stop-and-Wait**, **Go-Back-N**, and **Selective Repeat**, using Python. It simulates sender-receiver communication over a network, including error injection and error checking techniques like CRC and Checksum.
 

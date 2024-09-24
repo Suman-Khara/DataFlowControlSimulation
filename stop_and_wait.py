@@ -119,7 +119,7 @@ class Receiver:
             self.error_checker = CRC()
         elif checker == 'Checksum':
             self.error_checker = Checksum()
-        self.index = 1
+        self.index = 0
         self.address = address
 
     def receive_data(self):
@@ -161,7 +161,6 @@ class Receiver:
                         print(f"{self.index}. rejected")
 
                 except Exception as e:
-                    print(f"Error receiving data: {e}")
                     self.connection.close()
                     break
 

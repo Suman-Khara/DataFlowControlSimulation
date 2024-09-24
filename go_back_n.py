@@ -171,8 +171,6 @@ class Receiver:
                         print(f"Frame {frame_seq_no} rejected (FCS error)")
 
                 except Exception as e:
-                    print(f"Error receiving data: {e}")
-                    traceback.print_exc() 
                     self.connection.close()
                     break
         self.validate_output()        

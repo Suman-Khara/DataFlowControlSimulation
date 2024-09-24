@@ -223,8 +223,6 @@ class Receiver:
                         self.send_ack(self.expected_seq_no - 1)
 
                 except Exception as e:
-                    print(f"Error receiving data: {e}")
-                    traceback.print_exc()
                     self.connection.close()
                     break
 
